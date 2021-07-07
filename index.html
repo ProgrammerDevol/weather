@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="./promise.css">
+</head>
+<body class="main">
+	<div class="cas">
+		<input class="inp"  id="city" type="text">	
+		<img class="bruh" src="./search.png" alt="png" width="25px" >
+		<h1 class="hone">Weather Science</h1>
+		<div class="bru">
+
+			<div class="cri">
+				<h1 id="heading" class="head"></h1>
+				<img id="img" class="img">
+				<h2 id="degree" class="htwo"></h2>
+				<h2 id="humi" class="htwo"></h2>
+				<h2 id="prees" class="htwo"></h2>
+				<h2 id="speed" class="htwo"></h2>
+			</div>	
+			
+		</div>	
+	</div>	
+<script>
+
+
+	city.onkeyup = (event) => {
+		if(event.keyCode == 13) {
+			let api = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=1cf7c5c60f7dbd47c1a74835737f1dbf`
+			let response = fetch(api)
+			response.then( res => res.json() )
+					.then( data => {
+						img.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+						heading.textContent =  data.name
+						degree.textContent = 'Degree: ' + (data.main.temp - 273 | 0) + '°C'
+						humi.textContent = 'Humidity:' + (data.main.humidity) + '%'
+						prees.textContent = 'Pressure:' + (data.main.pressure) + 'mbar'
+						speed.textContent = 'Speed of Wind:' + (data.wind.speed) + 'm/s'
+					})
+		}
+	}
+
+
+	
+ </script>
+</body>
+</html>
